@@ -1,91 +1,75 @@
+#include <stdlib.h>
+#include <stdio.h>
 
-#include <stdlib.h>
-#include <stdlib.h>
+#define TAILLE_MAX 100
 
 typedef struct _Cellule *Cellule;
 
-struct _Cellule{
+struct _Cellule
+{
     int val;
+    int occ;
     Cellule suivant;
 };
 
-Cellule creationListEnPremier(int tabValeur[], int tailleTableau){
-    Cellule cellulePremier = (Cellule)malloc(sizeof(Cellule));
-
-    cellulePremier->val = tabValeur[0];
-    cellulePremier->suivant = NULL;
-
-    Cellule celluleCourant = (Cellule)malloc(sizeof(Cellule));
-    celluleCourant->val = tabValeur[1];
-    celluleCourant->suivant = cellulePremier;
-
-    cellulePremier = celluleCourant;
-
-    for(int i = 1; i < tailleTableau; i++){
-        
-        celluleCourant->val = tabValeur[i];
-        celluleCourant->suivant = cellulePremier;
-        cellulePremier = celluleCourant;
-    }
-
-    free(celluleCourant);
-    return cellulePremier;
-}
-
-Cellule creationListEnDernier(int tabValeur[], int tailleTableau){
-    Cellule cellulePremier = (Cellule)malloc(sizeof(Cellule));
-
-    Cellule celluleDernier = (Cellule)malloc(sizeof(Cellule));
-    Cellule celluleCourant = (Cellule)malloc(sizeof(Cellule));
-
-    cellulePremier = celluleDernier;
-
-    celluleDernier->val = tabValeur[0];
-    celluleDernier->suivant = celluleCourant;
-    for(int i = 1; i < tailleTableau; i++){
-        celluleCourant->val = tabValeur[i];
-        celluleCourant->suivant = NULL;
-
-        celluleDernier = celluleCourant;
-    }
-
-    return cellulePremier;
-}
-
-void supprimerCellule(Cellule cellulePremier, int valeurSupprimer){
-    Cellule cellulePrecedent = (Cellule)malloc(sizeof(Cellule));
-    Cellule celluleCourant = (Cellule)malloc(sizeof(Cellule));
-    Cellule celluleSuivant = (Cellule)malloc(sizeof(Cellule));
-
-    celluleCourant = cellulePremier;
-    celluleSuivant = celluleCourant->suivant;
+Cellule rechercheCellule(Cellule premier, int valeurRechercher){
+    Cellule celluleCourant = premier;
 
     while(celluleCourant != NULL){
-        if(celluleCourant->val == valeurSupprimer){
-            if(cellulePrecedent == NULL){
-                cellulePremier = celluleSuivant; // case premier
-            }else {
-                cellulePrecedent->suivant = celluleSuivant;
-            }
+        if(celluleCourant->val == valeurRechercher){
+            return celluleCourant;
         }
-        cellulePrecedent = celluleCourant;
-        celluleCourant = celluleSuivant;
-        if(celluleSuivant != NULL){
-            celluleSuivant = celluleSuivant->suivant; // case
+        celluleCourant = celluleCourant->suivant;
+    }
+    return NULL;
+}
+
+Cellule listValeurParOccurence(int tableauElement[], int nombreElement){
+    Cellule premierElemet = (Cellule)malloc(sizeof(Cellule));
+
+    for(int i = 0; i < nombreElement; i++){
+        Cellule celluleExist = rechercheCellule(premierElemet, tableauElement[i]);
+        if(celluleExist != NULL){
+            celluleExist->occ++;
+        }else{
+            Cellule nouveauCellule = (Cellule)malloc(sizeof(Cellule));
+            nouveauCellule->val = tableauElement[i];
+            nouveauCellule->occ = 1;
+            nouveauCellule->suivant = premierElemet;
+            premierElemet = nouveauCellule;
         }
     }
-    
-    free(cellulePrecedent);
-    free(celluleCourant);
-    free(celluleSuivant);
+
+    return premierElemet;
 }
 
 void afficherList(Cellule premier){
-    Cellule celluleCourant = (Cellule)malloc(sizeof(Cellule));
+        Cellule celluleCourant = (Cellule)malloc(sizeof(Cellule));
 
-    celluleCourant = premier;
-    while(celluleCourant != NULL){
-        printf("%d -> ", celluleCourant->val);
-        celluleCourant = celluleCourant->suivant;
+        celluleCourant = premier;
+        while(celluleCourant != NULL){
+            printf("valeur: %d, occ: %d -> ", celluleCourant->val, celluleCourant->occ);
+            celluleCourant = celluleCourant->suivant;
+        }
+        printf("NULL\n");
     }
+
+int main()
+{
+    int nombreElement;
+    int tableauElement[TAILLE_MAX];
+    printf("repliser votre tableau: ");
+    scanf("%d", &nombreElement);
+
+    for (int i = 0; i < nombreElement; i++)
+    {
+        printf("Element %d: ", i);
+        scanf("%d", &tableauElement[i]);
+    }
+
+    Cellule cellulePremier = listValeurParOccurence(tableauElement, nombreElement);
+    afficherList(cellulePremier);
+
+
+    return 0;
 }
