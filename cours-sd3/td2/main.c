@@ -74,7 +74,7 @@ void supprimerCellule(Cellule cellulePremier, int valeurSupprimer){
             celluleSuivant = celluleSuivant->suivant; // case
         }
     }
-    `
+    
     free(cellulePrecedent);
     free(celluleCourant);
     free(celluleSuivant);
