@@ -62,7 +62,6 @@ void remplirListEnMillieu(Cellule premier, int elementInserer, int apresValeur){
 }
 
 void supprimerCellule(Cellule premier, int valSupprimer){
-    printf("here");
     Cellule celluleCourant = premier;
     Cellule celluleSupprimer;
     
