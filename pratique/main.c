@@ -185,11 +185,8 @@ int menuGeneral(){
 }
 
 int main(){
-    printf("ajouter location: \n");
-    Location locationCourant = ajoutLocation();
-    int prixTotalClient = calculPrixTotal(locationCourant);
 
-    
+
 
     return 0;
 }
