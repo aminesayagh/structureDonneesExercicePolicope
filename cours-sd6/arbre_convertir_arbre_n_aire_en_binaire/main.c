@@ -79,8 +79,11 @@ ArbreBinaire convertirArbreNAireEnBinaire(Arbre sommetArbreNAire, Arbre frereArb
 
     sommet->val = valeurSommet;
     // premier etage
-    sommet = lierBrancheArbreBinaire(sommetArbreNAire->fils[0], frereArbreNAire, sommet);
-    sommet->premierFils = convertirArbreNAireEnBinaire(sommetArbreNAire->fils[0], sommetArbreNAire->fils[1], &sommetArbreNAire->val);
+    for(int i = 0; i < sommetArbreNAire->nombreFils; i++){
+        sommet = lierBrancheArbreBinaire(sommetArbreNAire->fils[0], frereArbreNAire, sommet);
+        sommet->premierFils = convertirArbreNAireEnBinaire(sommetArbreNAire->fils[i], sommetArbreNAire->fils[i + 1], &sommetArbreNAire->val);
+        
+    }
     return sommet;
 }
 
