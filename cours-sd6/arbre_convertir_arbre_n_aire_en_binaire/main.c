@@ -74,15 +74,14 @@ ArbreBinaire lierBrancheArbreBinaire(ArbreBinaire premierFils, ArbreBinaire dern
     return parent;
 }
 
-ArbreBinaire convertirArbreNAireEnBinaire(Arbre sommetArbreNAire, Arbre frereArbreNAire, int valeurSommet){
+ArbreBinaire convertirArbreNAireEnBinaire(Arbre sommeArbreNAire, Arbre frereArbreNAire, int valeurSommet){
     ArbreBinaire sommet = (ArbreBinaire)malloc(sizeof(ArbreBinaire));
 
     sommet->val = valeurSommet;
-    // premier etage
-    for(int i = 0; i < sommetArbreNAire->nombreFils; i++){
-        sommet = lierBrancheArbreBinaire(sommetArbreNAire->fils[0], frereArbreNAire, sommet);
-        sommet->premierFils = convertirArbreNAireEnBinaire(sommetArbreNAire->fils[i], sommetArbreNAire->fils[i + 1], &sommetArbreNAire->val);
-        
+    for(int i = 0; i < sommeArbreNAire->nombreFils - 1; i++){
+        sommet = lierBrancheArbreBinaire(sommeArbreNAire->fils[i], frereArbreNAire, sommet);
+        sommet->premierFils = convertirArbreNAireEnBinaire(sommeArbreNAire->fils[i], frereArbreNAire->fils[i+1], &sommeArbreNAire->val);
+        sommet->dernierFils = convertirArbreNAireEnBinaire(sommeArbreNAire->fils[i + 1], sommeArbreNAire->fils[i + 2], &sommeArbreNAire->val);
     }
     return sommet;
 }
