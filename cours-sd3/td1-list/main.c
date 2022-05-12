@@ -46,9 +46,7 @@ Cellule remplirListEnDernier(int tabElement[], int nombreElement)
 
 void afficherList(Cellule premier)
 {
-    Cellule celluleCourant = (Cellule)malloc(sizeof(Cellule));
-
-    celluleCourant = premier;
+    Cellule celluleCourant = premier;
     while (celluleCourant != NULL)
     {
         printf("%d -> ", celluleCourant->val);
