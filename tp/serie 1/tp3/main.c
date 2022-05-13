@@ -49,7 +49,7 @@ Etudiant creerListEtudiant(){
 
     for(int i = 0;i < nombreEtudiant; i++){
         printf("Definir l'etudiant %d : ", i + 1);
-        etudiantPremier = ajouterEtudiantPremier(etudiantPremier);
+        etudiantPremier = ajouterEtudiantPremier(etudiantPremier, creerEtudiant());
     }
     return etudiantPremier;
 }
@@ -71,17 +71,19 @@ int nombreLivresMax(Etudiant premier){
 Etudiant etudiantAvecMaxLivreEmprunter(Etudiant premier){
     int nombreLivreMax = 0;
     Etudiant premierEtudiantMaxLivres = (Etudiant)malloc(sizeof(Etudiant));
-    nombreLivreMax = nombreLivresMax(premierEtudiantMaxLivres);
+    nombreLivreMax = nombreLivresMax(premier);
 
     Etudiant etudiantCourant = premier;
 
     while(etudiantCourant != NULL){
         if(etudiantCourant->nombreLivresEmprunter == nombreLivreMax){
-            
+            premierEtudiantMaxLivres = ajouterEtudiantPremier(premierEtudiantMaxLivres, etudiantCourant);
         }
 
         etudiantCourant = etudiantCourant->suivant;
     }
 
+    return premierEtudiantMaxLivres;
 }
+
 
