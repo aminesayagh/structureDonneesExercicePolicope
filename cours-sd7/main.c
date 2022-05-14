@@ -204,7 +204,7 @@ void supprimerNoeud(NouedBinaire *sommet, int val){
             } else if((*sommet)->filsGauche == NULL) {
                 *sommet = (*sommet)->filsDroit;
             } else {
-                tmp = noeudMax(sommet->);
+                // tmp = noeudMax(sommet->);
             }
         }
     }
