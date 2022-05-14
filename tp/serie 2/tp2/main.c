@@ -18,7 +18,7 @@ struct _Page{
 
 // l: motPremmier
 // LPAGE: pagePremier
-void ajouteMot(Mot *motPremier, Page *pagePremier, int motAjouter){
+void ajouteMot(Mot *motPremier, Page *pagePremier, char motAjouter[]){
 
     Mot *motCourant = *motPremier;
     while(*motCourant != NULL){
