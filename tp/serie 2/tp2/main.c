@@ -34,9 +34,9 @@ void supprimerMot(Mot *motPremier, int motSuppimer){
     Mot *motSuivant = (*motPremier)->suivant;
     while(*motCourant != NULL){
         if(strcmp(&(*motSuivant)->mot, motSuppimer) == 0){
-            (*motCourant)->suivant = motSuivant;
-            
+            (*motCourant)->suivant = (*motSuivant)->suivant;
         }
         *motCourant = (*motCourant)->suivant;
+        *motSuivant = (*motCourant)->suivant;
     }
 }
